@@ -1,0 +1,73 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <!-- Lets a central PackageVersion override a transitive dependency's resolved
+         version without adding a direct PackageReference (used to patch MessagePack below). -->
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Aspire.Hosting.Azure.ApplicationInsights" Version="13.5.3" />
+    <!-- Transitive via Aspire.Hosting 13.5.3 (StreamJsonRpc 2.25.29 requires >= 2.5.302);
+         also clears NU1903 (GHSA-hv8m-jj95-wg3x, high severity) that the 2.5.192 it would
+         otherwise resolve to is subject to. -->
+    <PackageVersion Include="MessagePack" Version="2.5.302" />
+    <PackageVersion Include="Aspire.Hosting.Azure.AppService" Version="13.5.3" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="13.5.3" />
+    <PackageVersion Include="EntityFrameworkCore.Exceptions.SqlServer" Version="10.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageVersion>
+    <!-- Pinned to satisfy Aspire 13.5.3's transitive >= 10.0.11 requirement, now
+         enforced by transitive pinning. Matches the EF Core 10.0.11 pins. -->
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.11" />
+    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.5.3" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageVersion Include="ErrorOr" Version="2.1.1" />
+    <PackageVersion Include="Vogen" Version="8.0.3" />
+    <PackageVersion Include="Ardalis.Specification" Version="9.3.1" />
+    <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="9.3.1" />
+    <PackageVersion Include="HotChocolate.AspNetCore" Version="16.6.6" />
+    <PackageVersion Include="HotChocolate.AspNetCore.CommandLine" Version="16.6.6" />
+    <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="16.6.6" />
+    <PackageVersion Include="HotChocolate.Subscriptions.InMemory" Version="16.6.6" />
+    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="16.6.6" />
+    <PackageVersion Include="Bogus" Version="35.6.5" />
+  </ItemGroup>
+  <ItemGroup Condition="$(IsAspireSharedProject) == 'true'">
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.8.0" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.8.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.17.0" />
+  </ItemGroup>
+  <ItemGroup Condition="$(IsAspireHost) == 'true'">
+    <!-- Prerelease is the only channel this package has ever shipped on; there is no stable
+         13.x to move to. The build number tracks the stable Aspire.Hosting.* 13.5.3 pins, so
+         bump it in lockstep with them. -->
+    <PackageVersion Include="Aspire.Hosting.EntityFrameworkCore" Version="13.5.3-preview.1.26425.3" />
+    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.5.3" />
+  </ItemGroup>
+  <ItemGroup Condition="$(IsTestProject) == 'true'">
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+    <PackageVersion Include="xunit.v3" Version="3.2.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageVersion>
+    <PackageVersion Include="NSubstitute" Version="6.0.0" />
+    <PackageVersion Include="NetArchTest.Rules" Version="1.3.2" />
+    <PackageVersion Include="AwesomeAssertions" Version="9.5.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.9" />
+    <PackageVersion Include="Respawn" Version="7.0.0" />
+    <PackageVersion Include="Testcontainers.MsSql" Version="4.9.0" />
+    <!-- Transitive via Testcontainers (pulled in by Testcontainers.MsSql); pinned above
+         the 2025.1.0 it resolves to in order to clear NU1903 (GHSA-q939-rpr3-3284,
+         high severity). -->
+    <PackageVersion Include="SSH.NET" Version="2026.0.0" />
+    <PackageVersion Include="Polly" Version="8.7.0" />
+  </ItemGroup>
+</Project>

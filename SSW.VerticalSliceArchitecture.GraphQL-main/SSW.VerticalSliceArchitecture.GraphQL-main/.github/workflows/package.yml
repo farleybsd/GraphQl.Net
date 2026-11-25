@@ -1,0 +1,53 @@
+name: Package
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'VerticalSliceArchitecture.nuspec'
+  workflow_dispatch:
+jobs:
+  publish:
+    name: Publish to NuGet.org
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: nuget/setup-nuget@v4
+        with:
+          nuget-version: '6.x'
+
+      - name: Install Mono
+        run: sudo apt-get update && sudo apt-get install -y mono-complete
+
+      - name: Create the package
+        run: nuget pack VerticalSliceArchitecture.nuspec -NoDefaultExcludes
+        
+      - name: Publish the package
+        run: nuget push *.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} 
+
+      - name: Get version
+        id: package_version
+        uses: KageKirin/get-csproj-version@v1.0.0
+        with:
+          file: VerticalSliceArchitecture.nuspec
+          xpath: //*[local-name()='version']
+
+      - name: Create git tag
+        run: |
+            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git tag -m "CI: create new tag" ${{ steps.package_version.outputs.version }}
+            git push https://${{ github.token }}@github.com/SSWConsulting/VerticalSliceArchitecture
+
+      - name: Create release
+        uses: ncipollo/release-action@v1.21.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          draft: false
+          prerelease: false
+          generateReleaseNotes: true
+          tag: ${{ steps.package_version.outputs.version }}

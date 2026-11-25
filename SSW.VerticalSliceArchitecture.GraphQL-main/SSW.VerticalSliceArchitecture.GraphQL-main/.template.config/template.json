@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "SSW Consulting",
+  "classifications": [
+    ".NET",
+    "Vertical Slice Architecture",
+    "API",
+    "ASP.NET Core",
+    "EF Core"
+  ],
+  "name": "Vertical Slice Architecture Solution",
+  "description": "Creates a new Vertical Slice Architecture Solution",
+  "identity": "SSW.VerticalSliceArchitecture.Solution.CSharp",
+  "groupIdentity": "SSW.VerticalSliceArchitecture.Solution",
+  "shortName": "ssw-vsa",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "SSW.VerticalSliceArchitecture",
+  "preferNameDirectory": true,
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        "**/.template.config/**/*",
+        ".vs/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json",
+        "**/.git/**",
+        "**/.idea/**",
+        "**/.vscode/**",
+        "**/.serena/**",
+        "**/.playwright-mcp/**",
+        "**/.claude/worktrees/**",
+        "**/.claude/plans/**",
+        "**/.claude/settings.local.json",
+        "*.nuspec",
+        "**/node_modules/**",
+        "docs/banner.png",
+        "**/*.nupkg",
+        "**/.github/**"
+      ]
+    }
+  ]
+}
