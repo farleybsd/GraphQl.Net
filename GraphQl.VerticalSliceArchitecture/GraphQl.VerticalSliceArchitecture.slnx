@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+  </Folder>
+  <Folder Name="/Solution Items/tools/" />
+  <Folder Name="/src/">
+    <Project Path="Domain/Domain.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+</Solution>
