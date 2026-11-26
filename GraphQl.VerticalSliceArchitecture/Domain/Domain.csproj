@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification" Version="10.0.0" />
-    <PackageReference Include="ErrorOr" Version="2.1.1" />
-    <PackageReference Include="Vogen" Version="8.0.7" />
+    <PackageReference Include="Ardalis.Specification" />
+    <PackageReference Include="ErrorOr" />
+    <PackageReference Include="Vogen" />
   </ItemGroup>
 
 </Project>

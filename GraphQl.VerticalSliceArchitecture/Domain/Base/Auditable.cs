@@ -23,7 +23,7 @@ public abstract class Auditable : IAuditable
             ThrowIfGreaterThan(value.Length, CreatedByMaxLength, nameof(CreatedBy));
             field = value;
         }
-    }
+    } = null!;
 
     public string? UpdatedBy
     {
