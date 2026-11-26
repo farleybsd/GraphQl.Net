@@ -1,4 +1,4 @@
-﻿using Domain.Base;
+using Domain.Base;
 using Domain.Teams;
 using Vogen;
 
@@ -43,15 +43,10 @@ public class Hero : AggregateRoot<HeroId>
     private Hero()
     { } // EfCore
 
-    public static Hero create(string name, string alias)
+    public static Hero Create(string name, string alias)
     {
-        var hero = new Hero
-        {
-            Id = HeroId.From(Guid.CreateVersion7()),
-            Name = name,
-            Alias = alias,
-            PowerLevel = 0
-        };
+        var hero = new Hero { Id = HeroId.From(Guid.CreateVersion7()), Name = name, Alias = alias };
+
         return hero;
     }
 

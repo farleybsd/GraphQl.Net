@@ -1,0 +1,2 @@
+# Mesma sintaxe do .gitignore. bin/ e obj/ já são ignorados pelo CSharpier.
+**/Migrations/
