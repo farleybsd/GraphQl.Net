@@ -5,6 +5,7 @@
   <Folder Name="/Solution Items/tools/" />
   <Folder Name="/src/">
     <Project Path="Domain/Domain.csproj" />
+    <Project Path="ServiceDefaults/ServiceDefaults.csproj" Id="edfd59dc-5891-44f1-b19e-0780268f1bfe" />
   </Folder>
   <Folder Name="/tests/" />
 </Solution>
